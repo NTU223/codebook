@@ -1,0 +1,305 @@
+%%%%%%%%%%%%%%%%%%%%%%% Page Dimension %%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\geometry{a4paper}
+\geometry{left=1cm, right=1cm, top=2cm, bottom=2cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%% Chinese Setting %%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseChinese}{
+  \usepackage{fontspec}
+  \usepackage{xeCJK}                        % 讓中英文字體分開設置
+  \defaultCJKfontfeatures{AutoFakeBold=2,
+                          AutoFakeSlant=.2} % Bold/italic setting.
+  \XeTeXlinebreaklocale "zh"                % For auto newline.
+  \XeTeXlinebreakskip = 0pt plus 1pt        % For auto newline.
+  \newCJKfontfamily{\Kai}{標楷體}
+  \newCJKfontfamily{\Hei}{微軟正黑體}
+  \newCJKfontfamily{\Wen}{文泉驛等寬微米黑}
+  \setCJKmainfont{文泉驛等寬微米黑}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Indent %%%%%%%%%%%%%%%%%%%%%%%%%
+\linespread{0.8}
+\setlength{\parskip  }{0.5em}
+\setlength{\parindent}{  0em}
+
+
+%%%%%%%%%%%%%%%%%%%%%% Header And Footer %%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}        % plain / empty / headings / myheadings / fancy
+\pagenumbering{arabic}   % arabic / roman / Roman / alph / Alph
+\fancyhead[L]{}
+\fancyhead[C]{223 - 摳的不可}
+\fancyhead[R]{}
+\fancyfoot[L]{}
+\fancyfoot[C]{Page~\thepage ~of~\pageref{LastPage}}
+\fancyfoot[R]{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{  0pt}
+
+
+%%%%%%%%%%%%%%%%%% title format & spacing %%%%%%%%%%%%%%%%%%
+\usepackage[sf]{titlesec}
+\titleformat{\part}[hang]{\LARGE\bfseries\center}{}{0em}{}[]
+\titleformat{\chapter}[hang]{\LARGE\bfseries\center}{}{0em}{}[]
+\titleformat{\section}[hang]{\large\bfseries}{}{0em}{}[]
+\titleformat{\subsection}[hang]{}{\thesubsection}{1em}{}{}
+\titleformat{\subsubsection}[hang]{}{\thesubsubsection}{1em}{}{}
+
+% \arabic 1, 2, 3 ...
+% \alph a, b, c ...
+% \Alph A, B, C ...
+% \roman  i, ii, iii ...
+% \Roman  I, II, III ...
+% \fnsymbol Aimed at footnotes; prints a sequence of symbols.
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}
+             {\arabic{subsection}.\arabic{subsection}.\arabic{subsubsection}}
+
+% -1 part, 0~5 ch, se, subse, subsubse, par, subpar
+\setcounter{secnumdepth}{5}
+
+
+%%%%%%%%%%%%%%%%%%%%%%% multi columns %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{multicol}
+\setlength{\columnsep    }{30pt}
+\setlength{\columnseprule}{0.5pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%% table of content %%%%%%%%%%%%%%%%%%%
+\iftoggle{UseTableOfContent}{
+  \usepackage[titles]{tocloft}
+  \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% mathematics %%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseMath}{
+  \usepackage{amsmath, amsthm, amssymb, mathtools}
+
+  \theoremstyle{definition}
+  \newtheorem*{defi}{Definition}
+
+  \theoremstyle{plain}
+  \newtheorem{thm}{Theorem}
+  \newtheorem{cor}[thm]{Corollary}
+  \newtheorem{lemma}[thm]{Lemma}
+
+  \DeclareMathOperator*{\argmin}{argmin}
+  \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% algorithm %%%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseAlgorithm}{
+  \usepackage{algorithmicx}
+  \usepackage{algorithm}
+  \usepackage{algc}
+  \usepackage{algcompatible}
+  \usepackage[noend]{algpseudocode}
+
+  \newcommand{\LineIf}[2]{\State \algorithmicif\ {#1}\ \algorithmicthen\ {#2}}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% url, ref %%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseUrl}{
+  \usepackage{url}
+  \usepackage{hyperref}
+  \hypersetup{
+    bookmarks   = true,
+    unicode     = true,
+    colorlinks  = true,
+    linkcolor   = blue,
+    urlcolor    = blue,
+    citecolor   = blue,
+    anchorcolor = blue
+  }
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Mint %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseListing}{
+  \usepackage{listings}
+
+  \lstset{
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=true,
+    breaklines=true,
+    captionpos=b,
+    escapeinside={(*@}{@*)},
+    extendedchars=true,
+    frame=single,
+    keepspaces=true,
+    numbers=left,
+    numbersep=4pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stepnumber=1,
+    tabsize=2,
+  }
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Mint %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseMint}{
+  \usepackage{listing}
+  \usepackage{minted}
+  \makeatletter
+
+  \renewcommand\mint[3][]{%
+    \DefineShortVerb{#3}%
+    \minted@resetoptions
+    \setkeys{minted@opt}{#1}%
+    \SaveVerb[aftersave={%
+      \UndefineShortVerb{#3}%
+      \minted@savecode{\FV@SV@minted@verb}%
+      \minted@pygmentize{#2}%
+      \DeleteFile{\jobname.pyg}}]{minted@verb}#3}
+  \renewcommand\minted@savecode[1]{%
+    \immediate\openout\minted@code\jobname.pyg\relax
+    \immediate\write\minted@code{#1}%
+    \immediate\closeout\minted@code}
+  \renewcommand\minted@pygmentize[2][\jobname.pyg]{%
+    \def\minted@cmd{pygmentize -l #2 -f latex -F tokenmerge
+      \minted@opt{gobble} \minted@opt{texcl} \minted@opt{mathescape}
+      \minted@opt{linenos} -P "verboptions=\minted@opt{extra}"
+      -o \jobname.out.pyg #1}%
+    \immediate\write18{\minted@cmd}%
+    \ifthenelse{\equal{\minted@opt@bgcolor}{}}%
+     {}%
+     {\begin{minted@colorbg}{\minted@opt@bgcolor}}%
+    \input{\jobname.out.pyg}%
+    \ifthenelse{\equal{\minted@opt@bgcolor}{}}%
+     {}%
+     {\end{minted@colorbg}}%
+    \DeleteFile{\jobname.out.pyg}}
+  \makeatother
+
+  \newcommand\mintinline[2]{%
+    {%
+      \RecustomVerbatimEnvironment{Verbatim}{BVerbatim}{}%
+      \mint{#1}|#2|
+  }}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% graphic %%%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseGraphic}{
+  \usepackage{graphicx}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Drawing %%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseDrawing}{
+  \usepackage{pgfplots}
+
+  \usepackage{tikz}
+  \usetikzlibrary{shapes}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{automata}
+  \usetikzlibrary{circuits}
+  \usetikzlibrary{circuits.logic.IEC}
+  \usetikzlibrary{circuits.logic.US}
+}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% enumerate %%%%%%%%%%%%%%%%%%%%%%%%%
+\iftoggle{UseEnumerate}{
+  \usepackage{enumitem}
+  \setenumerate{label=\textbf{\arabic*.},itemsep=3pt,topsep=3pt}
+  \setlist[description]{leftmargin=0pt,labelindent=0pt}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%% custom commands %%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Indent}[2]{\parindent=#1 \leftskip=#2}
+\newcommand{\Usesize}[2]{\fontsize{#1}{#2}\selectfont\fontsize{#1}{#2}\selectfont}
+\newcommand{\Problem}[1]{Problem {#1}}
+\newcommand{\SimpleTitle}[1]{\textbf{\Large{\begin{center}#1\end{center}}}}
+
+
+%%%%%%%%%%%%%%%%%%%% Examples & Usage %%%%%%%%%%%%%%%%%%%%
+
+% \newtheorem{thm}{Theorm}                     定理
+% \newtheorem{thm}{Theorm}[section]            加入節...?
+% \newtheorem{lem}[thm]{Lemma}                 和定理一起編號
+% \newtheorem*{mainthm}{Main Theorem}          不要編號
+% \begin{thm}\label{T:major} ... \ref{T:major} 用label, 引用
+% \begin{array}{clr}  ... & ... \\             矩陣用
+% \begin{align}
+
+% titleformat{command}[shape]{format}{label}{sep}{before}[after]
+%     command: 要定義的標題
+%     shape  : 形狀 hang|block|display
+%     format : 標題外觀(至中對齊啦, 粗體啦...)
+%     label  : 標籤(標號)
+%     sep    : 標題標籤與內容之間的間隔
+%     befor  : 內容之前
+%     after  : 內容之後
+
+% titlespacing{command}{left}{before}{after}
+%     command: 要定義的標題
+%     left   : 標題左邊偏移
+%     before : 與前一段文字間隔
+%     after  : 與後一段文字間隔
+
+% ~ &                                             空白 表格中的分隔
+% \, \: \; \quad \qquad \hspace{2cm}              小中大空白
+% \smallskip \medskip \bigskip \vspace{2cm}       垂直移動3, 6, 12, 自訂
+% \hfill, \vfill                                  平均的塞入 水平/垂直 空間
+% \dotfill \hrulefill                             塞           點/線   進去
+% \tiny \small \large \Large \LARGE \huge \Huge   字體大小
+% \emph{} \bf{}                                   斜體, 粗體
+% \title{} \author{} \date{} \maketitle           封面用
+% $...$ \[...\]                                   數學 隨文/展示 模式
+% \textbackslash  $\backslash%                    反除號
+% \part \chapter \section \paragraph              section command
+% \begin{itemize/enumerate/description} \item     item (\itemsep = 0em 設定間距)
+
+% \usepackage[Sonny]{fncychap}                   漂亮的chapter
+% Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+
+% 靠左/右/中對齊(前者不切齊)
+% \begin{raggedleft / flushright / center}
+% \linespread{0.5}
+
+% 子頁面
+% \begin{minipage}[t]{0.40\linewidth}
+% \end{minipage}
+
+% 表格
+% \begin{tabular}[t / b / c]{r|cc||l}
+%     bla & x & y & bla    (\\ or \tabularnewline)
+%     \hline
+%     bla & x & y & bla    (\\ or \tabularnewline)
+% \end{tabular}
+
+% multiple columns
+% \begin{multicols}{2}
+% \end{multicols}
+
+% 虛擬代碼 Example:
+% \begin{algorithm}
+% \begin{algorithmic}[1]
+%     \caption{My algorithm}\label{euclid}
+%     \Function{$BinSearch$}{$record array arr, integer len, integer value$}
+%         \State{$left \gets 0, {right} \gets \mathrm{len}$}
+%         \State ${ans} \gets -1$
+%         \While{ $left < right$ }
+%             \State $mid \gets ??$
+%             \If{$arr[mid] = value$}
+%                 \State $ans \gets mid, left \gets mid+1$
+%             \ElsIf{$arr[mid] > value$}
+%                 \State{$right \gets mid$}
+%             \ElsIf{$arr[mid] < value$}
+%                 \State{$left  \gets mid+1$}
+%             \EndIf
+%         \EndWhile
+%         \LineIf{$ans = -1$}{\Return $NOTFOUND$}
+%         \State \Return $arr[ans]$
+%     \EndFunction
+% \end{algorithmic}
+% \end{algorithm}

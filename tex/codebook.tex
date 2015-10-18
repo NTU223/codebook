@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+
+\usepackage{etoolbox}
+\newtoggle{UseChinese}        \toggletrue{UseChinese}
+\newtoggle{UseTableOfContent} \toggletrue{UseTableOfContent}
+\newtoggle{UseMath}           \toggletrue{UseMath}
+\newtoggle{UseAlgorithm}      \togglefalse{UseAlgorithm}
+\newtoggle{UseEnumerate}      \toggletrue{UseEnumerate}
+\newtoggle{UseUrl}            \togglefalse{UseUrl}
+\newtoggle{UseListing}        \toggletrue{UseListing}
+\newtoggle{UseMint}           \togglefalse{UseMint}
+\newtoggle{UseGraphic}        \togglefalse{UseGraphic}
+\newtoggle{UseDrawing}        \togglefalse{UseDrawing}
+
+\input{config.tex}
+
+
+\begin{document}
+
+\begin{multicols}{2}
+\begingroup
+\def\addvspace#1{}
+  \tableofcontents
+\endgroup
+\end{multicols}
+
+\begin{section}{\textasciitilde/.vimrc}
+  \lstset{numbers=none}
+  \lstinputlisting{../source_code/vimrc.vim}
+\end{section}
+
+\begin{section}{Memo}
+  \begin{multicols}{3}
+    \begin{itemize}
+      \item Binary Search
+      \item stack, queue, deque, DP
+      \item Split N to two N/2
+      \item Find the center of gravity
+      \item continue?break?
+      \item divide by zero, special case
+      \item initialize
+      \item
+      \item
+      \item
+      \item
+      \item
+    \end{itemize}
+  \end{multicols}
+\end{section}
+
+\lstset{
+  language=C++,
+}
+
+\begin{section}{KMP}
+  \lstinputlisting{../source_code/kmp.cpp}
+\end{section}
+
+\begin{section}{Gaussian Elimination}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/gaussian_elimination.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Tree DC}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/tree_dc.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Tarjar On Graph}
+  \lstinputlisting{../source_code/tarjan_on_graph.cpp}
+\end{section}
+
+\begin{section}{Dinic}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/dinic.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Hungarian}
+  \lstinputlisting{../source_code/hungarian.cpp}
+\end{section}
+
+\begin{section}{Poly}
+  \begin{multicols}{2}
+  $|Y|=t$\\
+  $c(g)=$循環節個數\\
+  著色方案數$\times$置換的個數=\\
+  $\sum_{\text{所有的位置交換}}\text{顏色的個數}^{\text{置換的循環節個個數}}$
+  \[
+    |Y^X/G|\ =\ \frac{1}{|G'|}\sum_{g\in G}{t^{c(g)}}
+  \]
+  \end{multicols}
+\end{section}
+
+\begin{section}{DMST}
+  \lstinputlisting{../source_code/dmst.cpp}
+\end{section}
+
+\begin{section}{HFTree}
+  \lstinputlisting{../source_code/hftree.cpp}
+\end{section}
+
+\begin{section}{Treap}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/treap.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Splay Tree}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/splay_tree.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Dancing Link}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/dancing_link.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Hungarian Unbalanced}
+  \lstinputlisting{../source_code/hungarian_unbalanced.cpp}
+\end{section}
+ 
+\begin{section}{General Graph Max Matching}
+  \lstinputlisting{../source_code/ggraph_matching.cpp}
+\end{section}
+
+\begin{section}{Hopcroft-Karp}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/hopcroft_karp.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Flow with upper and lower bound}
+  \begin{multicols}{2}
+    有源匯上下界最大流:
+    \begin{enumerate}
+      \item 建立附加網路
+      \item 求max\_flow(S',T')
+      \item 若有解，求max\_flow(S,T)
+      \item nop
+      \item nop
+    \end{enumerate}
+    有源匯上下界最小流
+    \begin{enumerate}
+      \item 建立附加網路(無(T,S)邊)
+      \item 求max\_flow(S',T')
+      \item 加入(T,S)邊
+      \item 求max\_flow(S',T')
+      \item 若S'、T'滿流，則(T,S)即為答案
+    \end{enumerate}
+  \end{multicols}
+\end{section}
+
+\begin{section}{rope}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/rope.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{二分匹配-交錯軌}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/bigraph_match.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Linux Stack Size}
+  \lstinputlisting{../source_code/linux_stack_size.cpp}
+\end{section}
+
+\begin{section}{AC Autamata}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/ac_automata.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{multicols}{2}
+  \begin{section}{神奇小技能}
+    \lstinputlisting[frame=none]{../source_code/special.cpp}
+  \end{section}
+
+  \begin{section}{Extend GCD}
+    \lstinputlisting[frame=none]{../source_code/extend_gcd.cpp}
+  \end{section}
+\end{multicols}
+
+\begin{section}{Suffix Array}
+  \lstinputlisting{../source_code/suffix_array.cpp}
+\end{section}
+
+\begin{section}{Lower Concave Hull}
+  \lstinputlisting{../source_code/lower_concave_hull.cpp}
+\end{section}
+
+\begin{section}{Stoer-Wanger}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/stoer_wager.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Miller-Rabin}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/miller_rabin.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Exact Cover}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none]{../source_code/exact_cover.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{2 Patterns}
+  \begin{multicols}{2}
+    \lstinputlisting[frame=none, breaklines=false]{../source_code/two_patterns.cpp}
+  \end{multicols}
+\end{section}
+
+\begin{section}{Line Segment}
+  \lstinputlisting{../source_code/line_segment.cpp}
+\end{section}
+
+\begin{section}{Polygon}
+  \lstinputlisting{../source_code/polygon.cpp}
+\end{section}
+
+\begin{section}{計算幾何}
+  \lstinputlisting{../source_code/cg.cpp}
+\end{section}
+
+\end{document}
