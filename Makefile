@@ -14,7 +14,7 @@ TARGET = $(TARGET_DIR)/$(TARGET_NAME)
 FLAGS = \
     -interaction=nonstopmode \
     -shell-escape \
-    -output-directory=$(TARGET_DIR)
+    -output-directory=$(TARGET_DIR) \
     -jobname=$(TARGET_NAME) \
 
 TIMES = 2
